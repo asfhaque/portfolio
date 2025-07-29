@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundWave - Free Music Streaming</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <div class="brand-icon">🎵</div>
+                <span class="brand-name">SoundWave</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-link active" data-page="home">
+                    <span class="nav-icon">🏠</span>
+                    Home
+                </button>
+                <button class="nav-link" data-page="search">
+                    <span class="nav-icon">🔍</span>
+                    Search
+                </button>
+                <button class="nav-link" data-page="library">
+                    <span class="nav-icon">📚</span>
+                    Library
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <div class="page active" id="home-page">
+                <div class="page-header">
+                    <h1>Welcome to SoundWave</h1>
+                    <p>Discover amazing music without limits</p>
+                </div>
+
+                <!-- Hero Section -->
+                <section class="hero-section">
+                    <div class="hero-track" id="hero-track">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Trending Section -->
+                <section class="music-section">
+                    <h2 class="section-title">🔥 Trending Now</h2>
+                    <div class="track-grid" id="trending-tracks">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Genres Section -->
+                <section class="music-section">
+                    <h2 class="section-title">🎨 Browse by Genre</h2>
+                    <div class="genre-grid" id="genre-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Recently Played -->
+                <section class="music-section">
+                    <h2 class="section-title">⏰ Recently Played</h2>
+                    <div class="track-list" id="recent-tracks">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Search Page -->
+            <div class="page" id="search-page">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search for songs, artists, or albums..." class="form-control">
+                        <button class="search-btn" id="search-btn">🔍</button>
+                    </div>
+                    <div class="search-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="track">Songs</button>
+                        <button class="filter-btn" data-filter="artist">Artists</button>
+                        <button class="filter-btn" data-filter="genre">Genres</button>
+                    </div>
+                </div>
+                <div class="search-results" id="search-results">
+                    <div class="search-placeholder">
+                        <div class="placeholder-icon">🎵</div>
+                        <h3>Search for your favorite music</h3>
+                        <p>Find songs, artists, albums and more</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Library Page -->
+            <div class="page" id="library-page">
+                <div class="page-header">
+                    <h1>Your Library</h1>
+                    <button class="btn btn--primary" id="create-playlist-btn">+ Create Playlist</button>
+                </div>
+
+                <!-- Downloaded Songs -->
+                <section class="music-section">
+                    <h2 class="section-title">⬇️ Downloaded Songs</h2>
+                    <div class="track-list" id="downloaded-tracks">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Playlists -->
+                <section class="music-section">
+                    <h2 class="section-title">📝 Your Playlists</h2>
+                    <div class="playlist-grid" id="playlist-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Mini Player -->
+        <div class="mini-player hidden" id="mini-player">
+            <div class="mini-player-track">
+                <img class="mini-album-art" id="mini-album-art" src="" alt="Album Art">
+                <div class="mini-track-info">
+                    <div class="mini-track-title" id="mini-track-title"></div>
+                    <div class="mini-track-artist" id="mini-track-artist"></div>
+                </div>
+            </div>
+            <div class="mini-player-controls">
+                <button class="control-btn" id="mini-prev-btn">⏮️</button>
+                <button class="control-btn primary" id="mini-play-btn">▶️</button>
+                <button class="control-btn" id="mini-next-btn">⏭️</button>
+            </div>
+            <div class="mini-player-expand">
+                <button class="expand-btn" id="expand-player-btn">⬆️</button>
+            </div>
+        </div>
+
+        <!-- Full Player Modal -->
+        <div class="modal hidden" id="full-player-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content full-player">
+                <div class="full-player-header">
+                    <button class="close-btn" id="close-player-btn">❌</button>
+                    <h3>Now Playing</h3>
+                    <button class="download-btn" id="player-download-btn">⬇️</button>
+                </div>
+                
+                <div class="full-player-artwork">
+                    <img id="full-album-art" src="" alt="Album Art">
+                    <div class="visualizer">
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                    </div>
+                </div>
+
+                <div class="full-player-info">
+                    <h2 id="full-track-title"></h2>
+                    <h3 id="full-track-artist"></h3>
+                    <p id="full-track-album"></p>
+                </div>
+
+                <div class="full-player-progress">
+                    <span id="current-time">0:00</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                            <div class="progress-handle" id="progress-handle"></div>
+                        </div>
+                    </div>
+                    <span id="total-time">0:00</span>
+                </div>
+
+                <div class="full-player-controls">
+                    <button class="control-btn" id="shuffle-btn">🔀</button>
+                    <button class="control-btn" id="full-prev-btn">⏮️</button>
+                    <button class="control-btn primary large" id="full-play-btn">▶️</button>
+                    <button class="control-btn" id="full-next-btn">⏭️</button>
+                    <button class="control-btn" id="repeat-btn">🔁</button>
+                </div>
+
+                <div class="volume-control">
+                    <span>🔊</span>
+                    <input type="range" id="volume-slider" min="0" max="100" value="100" class="volume-slider">
+                    <span id="volume-display">100%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Playlist Modal -->
+        <div class="modal hidden" id="create-playlist-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Create New Playlist</h3>
+                    <button class="close-btn" id="close-playlist-modal">❌</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Playlist Name</label>
+                        <input type="text" id="playlist-name-input" class="form-control" placeholder="Enter playlist name...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea id="playlist-description-input" class="form-control" placeholder="Describe your playlist..." rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn--secondary" id="cancel-playlist-btn">Cancel</button>
+                    <button class="btn btn--primary" id="save-playlist-btn">Create Playlist</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Progress Toast -->
+        <div class="toast hidden" id="download-toast">
+            <div class="toast-content">
+                <div class="toast-icon">⬇️</div>
+                <div class="toast-message">
+                    <div class="toast-title">Downloading...</div>
+                    <div class="toast-progress">
+                        <div class="progress-bar small">
+                            <div class="progress-fill" id="download-progress-fill"></div>
+                        </div>
+                        <span id="download-progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-player" preload="metadata"></audio>
+    <script src="app.js"></script>
+</body>
+</html>
